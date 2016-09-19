@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class RandomizedSet {
+public class LeetCode380 {
 
     private Map<Integer, Integer> v2p;
     private Map<Integer, Integer> p2v;
@@ -9,7 +9,7 @@ public class RandomizedSet {
     private int position;
 
     /** Initialize your data structure here. */
-    public RandomizedSet() {
+    public LeetCode380() {
         v2p = new HashMap<>();
         p2v = new HashMap<>();
         random = new java.util.Random();
@@ -54,7 +54,7 @@ public class RandomizedSet {
     }
 
     public static void main(String[] args) {
-        RandomizedSet set = new RandomizedSet();
+        LeetCode380 set = new LeetCode380();
         set.insert(1);
         set.remove(2);
         set.insert(2);

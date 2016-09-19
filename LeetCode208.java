@@ -5,11 +5,11 @@ import java.util.List;
  * archeryue
  * 9/19/16
  */
-public class Trie {
+public class LeetCode208 {
 
     private TrieNode root;
 
-    public Trie() {
+    public LeetCode208() {
         root = new TrieNode();
     }
 
