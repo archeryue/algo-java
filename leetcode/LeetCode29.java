@@ -1,3 +1,5 @@
+package leetcode;
+
 /**
  * archeryue
  * 9/19/16
