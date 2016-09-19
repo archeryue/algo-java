@@ -19,10 +19,6 @@ public class LeetCode126 {
         Set<String> set = new HashSet<>();
         while (!queue.isEmpty()) {
             List<String> list = queue.poll();
-            for (String s : list) {
-                System.out.print(s + ",");
-            }
-            System.out.println("");
             if (list.size() > level) {
                 wordList.removeAll(set);
                 set.clear();
