@@ -12,16 +12,17 @@ public class LeetCode10 {
 
         boolean[][] a = new boolean[p.length() + 1][s.length() + 1];
         a[0][0] = true;
+        for (int pi = 2; pi <= p.length(); pi++) {
+            a[pi][0] = p.charAt(pi - 1) == '*' && a[pi - 2][0];
+        }
+
         for (int pi = 1; pi <= p.length(); pi++) {
             if (pi < p.length() && p.charAt(pi) == '*') continue;
-            for (int si = 0; si <= s.length(); si++) {
-                if (si == 0) {
-                    a[pi][si] |= p.charAt(pi - 1) == '*' && a[pi - 2][si];
-                } else if (p.charAt(pi - 1) == '*') {
-                    if (match(s.charAt(si - 1), p.charAt(pi - 2))) {
-                        a[pi][si] = a[pi][si - 1] || a[pi - 2][si - 1];
-                    }
-                    a[pi][si] |= a[pi - 2][si];
+            for (int si = 1; si <= s.length(); si++) {
+                if (p.charAt(pi - 1) == '*') {
+                    a[pi][si] = a[pi - 2][si]
+                            || a[pi][si - 1]
+                            && match(s.charAt(si - 1), p.charAt(pi - 2));
                 } else {
                     a[pi][si] = a[pi - 1][si - 1]
                             && match(s.charAt(si - 1), p.charAt(pi - 1));
@@ -36,19 +37,18 @@ public class LeetCode10 {
     }
 
     public static void main(String[] args) {
+        long time = System.currentTimeMillis();
         System.out.println(isMatch("aaa", "a"));
         System.out.println(isMatch("abc", "abc"));
         System.out.println(isMatch("abc", ".bc"));
         System.out.println(isMatch("aaac", "a*ac"));
         System.out.println(isMatch("aab", "c*a*b"));
         System.out.println(isMatch("ab", ".*"));
-        System.out.println(isMatch("abc", ".**"));
         System.out.println(isMatch("abc", "h*d*c*..c"));
         System.out.println(isMatch("aaa", "ab*c*a*a"));
         System.out.println(isMatch("aba", "ab*a*c*a"));
         System.out.println(isMatch("a", "ab*"));
         System.out.println(isMatch("a", ".*"));
-        long time = System.currentTimeMillis();
         System.out.println(isMatch("aaaaaaaaaaaaab", "a*a*a*a*a*a*a*a*a*a*a*a*b"));
         System.out.println(System.currentTimeMillis() - time);
     }
