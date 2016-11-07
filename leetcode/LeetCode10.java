@@ -7,28 +7,32 @@ package leetcode;
 public class LeetCode10 {
 
     public static boolean isMatch(String s, String p) {
-        return isMatch(s, p, 0, 0);
-    }
+        if (p.length() == 0) return s.length() == 0;
+        if (p.charAt(0) == '*') return false;
 
-    private static boolean isMatch(String s, String p, int i, int j) {
-        if (j == p.length()) return i == s.length();
-        if (j >= p.length()) return false;
-        if (j == p.length() - 1 || p.charAt(j+1) != '*') {
-            return match(s, p, i, j) && isMatch(s, p, i+1, j+1);
-        } else {
-            if (isMatch(s, p, i, j+2)) return true;
-            while (match(s, p, i, j)) {
-                i++;
-                if (isMatch(s, p, i, j+2)) return true;
+        boolean[][] a = new boolean[p.length() + 1][s.length() + 1];
+        a[0][0] = true;
+        for (int pi = 1; pi <= p.length(); pi++) {
+            if (pi < p.length() && p.charAt(pi) == '*') continue;
+            for (int si = 0; si <= s.length(); si++) {
+                if (si == 0) {
+                    a[pi][si] |= p.charAt(pi - 1) == '*' && a[pi - 2][si];
+                } else if (p.charAt(pi - 1) == '*') {
+                    if (match(s.charAt(si - 1), p.charAt(pi - 2))) {
+                        a[pi][si] = a[pi][si - 1] || a[pi - 2][si - 1];
+                    }
+                    a[pi][si] |= a[pi - 2][si];
+                } else {
+                    a[pi][si] = a[pi - 1][si - 1]
+                            && match(s.charAt(si - 1), p.charAt(pi - 1));
+                }
             }
         }
-        return false;
+        return a[p.length()][s.length()];
     }
 
-    private static boolean match(String s, String p, int i, int j) {
-        if (i == s.length() && j == p.length()) return true;
-        if (i >= s.length() || j >= p.length()) return false;
-        return s.charAt(i) == p.charAt(j) || (i < s.length() && p.charAt(j) == '.');
+    private static boolean match(char s, char p) {
+        return s == p || p == '.';
     }
 
     public static void main(String[] args) {
