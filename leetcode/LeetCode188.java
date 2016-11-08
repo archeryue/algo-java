@@ -15,18 +15,18 @@ public class LeetCode188 {
             return quick(prices);
         }
 
-        int[][] local = new int[k + 1][prices.length];
-        int[][] global = new int[k + 1][prices.length];
+        int[][] buy = new int[prices.length][k + 1];
+        int[][] sell = new int[prices.length][k + 1];
 
-        for (int i = 1; i <= k; i++) {
-            for (int j = 1; j < prices.length; j++) {
-                int profit = prices[j] - prices[j - 1];
-                local[i][j] = Math.max(global[i - 1][j - 1] + profit, local[i][j - 1] + profit);
-                global[i][j] = Math.max(global[i][j - 1], local[i][j]);
+        for (int i = 1; i < prices.length; i++) {
+            int profit = prices[i] - prices[i - 1];
+            for (int j = 1; j <= k; j++) {
+                buy[i][j] = Math.max(buy[i - 1][j] + profit, sell[i - 1][j - 1]);
+                sell[i][j] = Math.max(buy[i - 1][j] + profit, sell[i - 1][j]);
             }
         }
 
-        return global[k][prices.length - 1];
+        return sell[prices.length - 1][k];
     }
 
     private static int quick(int[] prices) {
@@ -41,7 +41,7 @@ public class LeetCode188 {
 
     public static void main(String[] args) {
         int[] prices = new int[] {4,4,6,1,1,4,2,5};
-        System.out.println(maxProfit(5, prices));
+        System.out.println(maxProfit(1, prices));
     }
 
 }
