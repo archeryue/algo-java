@@ -38,8 +38,8 @@ public class LeetCode95 {
                     p.right = tmp;
                     res.add(newTree(node));
                     p.right = tmp.left;
-                    p = p.right;
                     tmp.left = null;
+                    p = p.right;
                 }
                 p.right = tmp;
                 res.add(node);
