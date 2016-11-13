@@ -18,9 +18,9 @@ public class LeetCode95 {
 
     public static List<TreeNode> generateTrees(int n) {
         List<TreeNode> res = new LinkedList<>();
-        List<TreeNode> list = new LinkedList<>();
         if (n < 1) return res;
 
+        List<TreeNode> list = new LinkedList<>();
         res.add(new TreeNode(1));
         for (int i = 2; i <= n; i++) {
             list.clear();
