@@ -40,7 +40,6 @@ public class LeetCode95 {
                     p.right = tmp.left;
                     p = p.right;
                     tmp.left = null;
-                    tmp.right = null;
                 }
                 p.right = tmp;
                 res.add(node);
@@ -61,7 +60,7 @@ public class LeetCode95 {
     }
 
     public static void main(String[] args) {
-        generateTrees(3);
+        generateTrees(5);
     }
 
 }
