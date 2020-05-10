@@ -30,7 +30,7 @@ public class LeetCode3 {
     }
 
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("pwwkew"));
+        System.out.println(lengthOfLongestSubstring("abba"));
     }
 
 }
